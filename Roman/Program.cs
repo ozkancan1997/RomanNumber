@@ -5,7 +5,7 @@ namespace Roman
     class Program
     {
         public static void Main(string[] args){
-            Console.WriteLine(Roman(2022));
+            Console.WriteLine(Roman(1881));
         }
         public static string Multiply(string input, int times)
 {
@@ -26,57 +26,85 @@ namespace Roman
           num%=1000;
       }
       
-      d_count=num/500;
+      if(num>=900||num<400){
+          d_count=0;
+      }else{
+          d_count=1;
+      }
       num%=500;
       
       c_count=num/100;
       num%=100;
       
-      l_count=num/50;
+      if(num>=90||num<40){
+          l_count=0;
+      }else{
+          l_count=1;
+      }
       num%=50;
       
       x_count=num/10;
       num%=10;
       
-      v_count=num/5;
+      if(num>=9||num<4){
+          v_count=0;
+      }else{
+          v_count=1;
+      }
       num%=5;
       
       i_count=num;
       
       roman+=Multiply("M",m_count);
-      roman+=Multiply("D",d_count);
-      if(c_count>3){
-          if(d_count==0){
-              roman+=Multiply("C",(5-c_count))+"D";
+      if(d_count==1){
+          if(c_count==4){
+              roman+="CD";
+          }else if(c_count==0){
+              roman+="D";
           }else{
-              roman+=Multiply("C",(5-c_count))+"M";
+              roman+="D"+Multiply("C",c_count);
           }
+
       }else{
-          roman+=Multiply("C",c_count);
+          if(c_count==4){
+              roman+="CM";
+          }else{
+              roman+=Multiply("C",c_count);
+          }
       }
       
-      roman+=Multiply("L",l_count);
-      
-      if(x_count>3){
-          if(l_count==0){
-              roman+=Multiply("X",(5-x_count))+"L";
+      if(l_count==1){
+          if(x_count==4){
+              roman+="XL";
+          }else if(x_count==0){
+              roman+="L";
           }else{
-              roman+=Multiply("X",(5-x_count))+"C";
+              roman+="L"+Multiply("X",x_count);
           }
+
       }else{
-          roman+=Multiply("X",x_count);
+          if(x_count==4){
+              roman+="XC";
+          }else{
+              roman+=Multiply("X",x_count);
+          }
       }
       
-      roman+=Multiply("V",v_count);
-      
-      if(i_count>3){
-          if(v_count==0){
-              roman+=Multiply("I",(5-i_count))+"V";
+      if(v_count==1){
+          if(i_count==4){
+              roman+="IV";
+          }else if(i_count==0){
+              roman+="V";
           }else{
-              roman+=Multiply("I",(5-i_count))+"X";
+              roman+="V"+Multiply("I",i_count);
           }
+
       }else{
-          roman+=Multiply("I",i_count);
+          if(i_count==4){
+              roman+="IX";
+          }else{
+              roman+=Multiply("I",i_count);
+          }
       }
       
       return roman;
